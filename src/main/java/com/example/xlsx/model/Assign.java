@@ -15,7 +15,9 @@ public class Assign {
 // т.к на данный момент нет информации какие ячейки могут быть пустыми валидация по первой ячейке
 
 
-        if (!(CellUtil.getCell(row, 0).getCellTypeEnum() == CellType.BLANK || CellUtil.getCell(row, 0).toString().trim().equals(""))) {
+        if (!(CellUtil.getCell(row, 0).getCellTypeEnum() == CellType.BLANK ||
+                CellUtil.getCell(row, 0).toString().trim().equals("")))
+        {
             KpModel model = KpModel
                     .builder()
 
