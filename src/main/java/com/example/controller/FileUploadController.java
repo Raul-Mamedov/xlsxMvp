@@ -1,7 +1,6 @@
 package com.example.controller;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,8 +56,6 @@ public class FileUploadController {
 
         List<KpModel> result = serviseUpload.ponse(file.getFile());
 
-
-        System.out.println(result.size());
 
         return ResponseEntity.ok(result);
     }
