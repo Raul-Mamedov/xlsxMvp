@@ -23,90 +23,76 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService {
 
-	private final Path rootLocation;
+    private final Path rootLocation;
 
-	@Autowired
-	public FileSystemStorageService(StorageProperties properties) {
-		this.rootLocation = Paths.get(properties.getLocation());
-	}
+    @Autowired
+    public FileSystemStorageService(StorageProperties properties) {
+        this.rootLocation = Paths.get(properties.getLocation());
+    }
 
-	@Override
-	public void store(MultipartFile file) {
-		try {
-			if (file.isEmpty()) {
-				throw new StorageException("Пустой файл, поробуйте загрузить другой файл");
-			}
-			if (!file.getContentType().toLowerCase(Locale.ROOT).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
-			{
-				throw new StorageException("Файл не того формата, вернитесь назад и попробуйте другой файл");
-			}
-			Path destinationFile = this.rootLocation.resolve(
-					Paths.get(file.getOriginalFilename()))
-					.normalize().toAbsolutePath();
-			if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-				// This is a security check
-				throw new StorageException(
-						"Невозможно сохранить файл вне текущего каталога.");
-			}
-			try (InputStream inputStream = file.getInputStream()) {
-				Files.copy(inputStream, destinationFile,
-					StandardCopyOption.REPLACE_EXISTING);
-			}
-		}
-		catch (IOException e) {
-			throw new StorageException("Не удалось сохранить файл", e);
-		}
-	}
+    @Override
+    public void store(MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Пустой файл, поробуйте загрузить другой файл");
+            }
+            if (!file.getContentType().toLowerCase(Locale.ROOT).equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+                throw new StorageException("Файл не того формата, вернитесь назад и попробуйте другой файл");
+            }
+            Path destinationFile = this.rootLocation.resolve(Paths.get(file.getOriginalFilename())).normalize().toAbsolutePath();
+            if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
+                // This is a security check
+                throw new StorageException("Невозможно сохранить файл вне текущего каталога.");
+            }
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, destinationFile, StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (IOException e) {
+            throw new StorageException("Не удалось сохранить файл", e);
+        }
+    }
 
-	@Override
-	public Stream<Path> loadAll() {
-		try {
-			return Files.walk(this.rootLocation, 1)
-				.filter(path -> !path.equals(this.rootLocation))
-				.map(this.rootLocation::relativize);
-		}
-		catch (IOException e) {
-			throw new StorageException("Не удалось прочитать сохраненные файлы", e);
-		}
+    @Override
+    public Stream<Path> loadAll() {
+        try {
+            return Files.walk(this.rootLocation, 1).filter(path -> !path.equals(this.rootLocation)).map(this.rootLocation::relativize);
+        } catch (IOException e) {
+            throw new StorageException("Не удалось прочитать сохраненные файлы", e);
+        }
+    }
 
-	}
+    @Override
+    public Path load(String filename) {
+        return rootLocation.resolve(filename);
+    }
 
-	@Override
-	public Path load(String filename) {
-		return rootLocation.resolve(filename);
-	}
+    @Override
+    public Resource loadAsResource(String filename) {
+        try {
+            Path file = load(filename);
+            Resource resource = new UrlResource(file.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new StorageFileNotFoundException("Не удалось прочитать файл: " + filename);
 
-	@Override
-	public Resource loadAsResource(String filename) {
-		try {
-			Path file = load(filename);
-			Resource resource = new UrlResource(file.toUri());
-			if (resource.exists() || resource.isReadable()) {
-				return resource;
-			}
-			else {
-				throw new StorageFileNotFoundException(
-						"Не удалось прочитать файл: " + filename);
+            }
+        } catch (MalformedURLException e) {
+            throw new StorageFileNotFoundException("Не удалось прочитать файл: " + filename, e);
+        }
+    }
 
-			}
-		}
-		catch (MalformedURLException e) {
-			throw new StorageFileNotFoundException("Не удалось прочитать файл: " + filename, e);
-		}
-	}
+    @Override
+    public void deleteAll() {
+        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
 
-	@Override
-	public void deleteAll() {
-		FileSystemUtils.deleteRecursively(rootLocation.toFile());
-	}
-
-	@Override
-	public void init() {
-		try {
-			Files.createDirectories(rootLocation);
-		}
-		catch (IOException e) {
-			throw new StorageException("Не удалось инициализировать хранилище", e);
-		}
-	}
+    @Override
+    public void init() {
+        try {
+            Files.createDirectories(rootLocation);
+        } catch (IOException e) {
+            throw new StorageException("Не удалось инициализировать хранилище", e);
+        }
+    }
 }

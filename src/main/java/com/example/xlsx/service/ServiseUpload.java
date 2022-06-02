@@ -15,7 +15,7 @@ public class ServiseUpload {
     @Autowired
     private Parser parser;
 
-    public List<KpModel> ponse (File file){
+    public List<KpModel> ponse(File file) {
 
         return parser.pars(file);
     }
