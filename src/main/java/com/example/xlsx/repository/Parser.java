@@ -26,10 +26,7 @@ public class Parser {
     @Autowired
     private Assign assign;
 
-
     public List<KpModel> pars(File file) {
-
-
 
 
         List<KpModel> result = new ArrayList<>();
@@ -43,32 +40,30 @@ public class Parser {
 
             workBook = new XSSFWorkbook(inputStream);
 
+            Sheet sheet = workBook.getSheetAt(0);
+
+            Iterator<Row> it = sheet.iterator();
+
+            it.next(); // пропускаем первый ряд при условии договоренности структуры файла!
+            while (it.hasNext()) {
+
+                Row row = it.next();
+
+                if (!(row == null)) {
+                    KpModel kpModel = assign.assignModel(row);
+
+                    if (!(kpModel == null)) {
+                        result.add(kpModel);
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Sheet sheet = workBook.getSheetAt(0);
-
-        Iterator<Row> it = sheet.iterator();
-
-
-        it.next(); // пропускаем первый ряд при условии договоренности структуры файла!
-        while (it.hasNext()) {
-
-            Row row = it.next();
-
-            if(!(row==null)) {
-                KpModel kpModel=assign.assignModel(row);
-
-              if (!(kpModel == null)) {
-                  result.add(kpModel);
-              }
-            }
-        }
         return result;
 
     }
-
 
 
 }
