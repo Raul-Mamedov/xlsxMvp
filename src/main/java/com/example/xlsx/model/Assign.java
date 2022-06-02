@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.xlsx.model;
 
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;

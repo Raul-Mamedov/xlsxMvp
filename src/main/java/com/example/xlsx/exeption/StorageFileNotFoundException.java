@@ -1,4 +1,4 @@
-package com.example.exeption;
+package com.example.xlsx.exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

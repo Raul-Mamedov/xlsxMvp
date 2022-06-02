@@ -1,4 +1,4 @@
-package com.example.properties;
+package com.example.xlsx.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

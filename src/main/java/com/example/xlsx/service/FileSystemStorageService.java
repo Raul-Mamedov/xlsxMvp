@@ -1,8 +1,8 @@
-package com.example.service;
+package com.example.xlsx.service;
 
-import com.example.exeption.StorageException;
-import com.example.exeption.StorageFileNotFoundException;
-import com.example.properties.StorageProperties;
+import com.example.xlsx.exeption.StorageException;
+import com.example.xlsx.exeption.StorageFileNotFoundException;
+import com.example.xlsx.properties.StorageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
