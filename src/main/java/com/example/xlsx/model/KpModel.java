@@ -10,7 +10,6 @@ import lombok.Setter;
 import java.util.Date;
 
 @Builder
-
 @Getter
 @Setter
 public class KpModel {
