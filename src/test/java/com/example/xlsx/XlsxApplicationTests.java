@@ -1,7 +1,7 @@
-package com.example;
+package com.example.xlsx;
 
-import com.example.exeption.StorageFileNotFoundException;
-import com.example.service.StorageService;
+import com.example.xlsx.exeption.StorageFileNotFoundException;
+import com.example.xlsx.service.StorageService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -9,11 +9,9 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;

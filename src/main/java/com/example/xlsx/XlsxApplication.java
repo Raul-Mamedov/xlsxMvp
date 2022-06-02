@@ -1,7 +1,7 @@
-package com.example;
+package com.example.xlsx;
 
-import com.example.properties.StorageProperties;
-import com.example.service.StorageService;
+import com.example.xlsx.properties.StorageProperties;
+import com.example.xlsx.service.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

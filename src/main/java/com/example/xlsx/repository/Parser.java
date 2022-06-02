@@ -1,9 +1,9 @@
-package com.example.repository;
+package com.example.xlsx.repository;
 
 
-import com.example.model.Assign;
+import com.example.xlsx.model.Assign;
 
-import com.example.model.KpModel;
+import com.example.xlsx.model.KpModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.InputStream;

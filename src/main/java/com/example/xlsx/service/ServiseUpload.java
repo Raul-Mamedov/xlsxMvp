@@ -1,8 +1,8 @@
-package com.example.service;
+package com.example.xlsx.service;
 
 
-import com.example.model.KpModel;
-import com.example.repository.Parser;
+import com.example.xlsx.model.KpModel;
+import com.example.xlsx.repository.Parser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

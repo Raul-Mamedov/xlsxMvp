@@ -1,4 +1,4 @@
-package com.example.exeption;
+package com.example.xlsx.exeption;
 
 public class StorageException extends RuntimeException {
 
