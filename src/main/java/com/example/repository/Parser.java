@@ -49,34 +49,6 @@ public class Parser {
 
         Sheet sheet = workBook.getSheetAt(0);
 
-        // Добавить валидацию файла на наличие недопустимых пустых ячеек
-
-//
-//        // удаляет пустые сроки в файле(нюансы Exel) но пока работает .50/50 Проще написать валидацию файла
-//        for(int i = 0; i < sheet.getLastRowNum(); i++){
-//            if(sheet.getRow(i)==null){
-//                isRowEmpty=true;
-//                sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
-//                i--;
-//                continue;
-//            }
-//            for(int j =0; j<sheet.getRow(i).getLastCellNum();j++){
-//                if( sheet.getRow(i).getCell(j) == null || sheet.getRow(i).getCell(j).toString().trim().equals("")){
-//                    isRowEmpty=true;
-//                }else {
-//                    isRowEmpty=false;
-//                    break;
-//                }
-//            }
-//            if(isRowEmpty==true){
-//                sheet.shiftRows(i + 1, sheet.getLastRowNum(), -1);
-//                i--;
-//            }
-//
-//        }
-
-
-
         Iterator<Row> it = sheet.iterator();
 
 

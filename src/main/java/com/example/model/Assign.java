@@ -1,6 +1,5 @@
 package com.example.model;
 
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellUtil;
@@ -68,7 +67,6 @@ public class Assign {
                     .completedPreviousMonth((int) CellUtil.getCell(row, 44).getNumericCellValue())
                     //где-то косяк в файле поэтому стринг
                     .completedReportingMonth(CellUtil.getCell(row, 36).toString())
-
                     .reasonDelay(CellUtil.getCell(row, 46).getStringCellValue())
                     .note(CellUtil.getCell(row, 47).getStringCellValue())
                     .curtorContract(CellUtil.getCell(row, 48).getStringCellValue())
